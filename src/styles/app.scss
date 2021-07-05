@@ -31,3 +31,62 @@ body {
 
 @import './config.scss';
 @import './login.scss';
+@import './header.scss';
+@import './filtros.scss';
+@import './listagem.scss';
+@import './footer.scss';
+@import './item.scss';
+
+input,
+select {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  color: $primaryColor;
+  min-width: 220px;
+  background-color: transparent;
+  font-family: 'Biennale Regular';
+
+  border-top-width: 0em;
+  border-left-width: 0em;
+  border-right-width: 0em;
+  border-bottom-width: 0.1em;
+  border-color: $mediumGreyColor;
+
+  outline: none;
+
+  cursor: pointer;
+
+  &:focus {
+    border-color: $primaryColor;
+  }
+
+  // Chrome, Firefox, Opera Safari 10+
+  &::placeholder {
+    color: $mediumGreyColor;
+    opacity: 1;
+  }
+
+  // Internet Explore
+  &:-ms-input-placeholder {
+    color: $mediumGreyColor;
+  }
+
+  // Microsoft Edge
+  &::-ms-input-placeholder {
+    color: $mediumGreyColor;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  input,
+  select {
+    border-top-width: 1em;
+    border-left-width: 1em;
+    border-right-width: 1em;
+    border-bottom-width: 1em;
+    border-radius: 8px;
+    padding: 5px;
+  }
+}

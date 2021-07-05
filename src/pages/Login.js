@@ -1,29 +1,50 @@
-import React, { useState } from 'react';
-import logo from '../assets/icones/devaria-logo.svg';
-import mail from '../assets/icones/mail.svg';
-import lock from '../assets/icones/lock.svg';
-import { Input } from '../assets/components/Input';
+import React, { useState } from 'react'
+import logo from '../assets/icones/devaria-logo.svg'
+import mail from '../assets/icones/mail.svg'
+import lock from '../assets/icones/lock.svg'
+import { Input } from '../assets/components/Input'
+import { executaRequisicao } from '../services/api'
 
-export const Login = () => {
-  const [login, setLogin] = useState('');
-  const [senha, setSenha] = useState('');
-  const [isLoading, setLoading] = useState(false);
+export const Login = props => {
+  const [login, setLogin] = useState('')
+  const [senha, setSenha] = useState('')
+  const [msgErro, setMsgErro] = useState('')
+  const [isLoading, setLoading] = useState(false)
 
-  const executaLogin = event => {
-    event.preventDefault();
-    setLoading(true);
-    console.log('login', login);
-    console.log('senha', senha);
+  const executaLogin = async event => {
+    try {
+      event.preventDefault()
+      setLoading(true)
+      setMsgErro('')
 
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
-  };
+      const body = { login, senha }
+
+      const resultado = await executaRequisicao('login', 'post', body)
+      if (resultado?.data?.token) {
+        localStorage.setItem('accessToken', resultado.data.token)
+        localStorage.setItem('usuarioNome', resultado.data.nome)
+        localStorage.setItem('usuarioEmail', resultado.data.email)
+        props.setAccessToken(resultado.data.token)
+      }
+    } catch (e) {
+      console.log(e)
+      if (e?.response?.data?.erro) {
+        setMsgErro(e.response.data.erro)
+      } else {
+        setMsgErro(
+          'Não foi possível efetuar o login, fale com o administrador.'
+        )
+      }
+    }
+    setLoading(false)
+  }
 
   return (
     <div className="container-login">
       <img src={logo} alt="Logo Devaria" className="logo" />
+
       <form>
+        {msgErro && <p>{msgErro}</p>}
         <Input
           srcImg={mail}
           altImg={'Icone email'}
@@ -48,5 +69,5 @@ export const Login = () => {
         </button>
       </form>
     </div>
-  );
-};
+  )
+}
