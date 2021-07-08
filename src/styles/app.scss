@@ -36,6 +36,7 @@ body {
 @import './listagem.scss';
 @import './footer.scss';
 @import './item.scss';
+@import './modal.scss';
 
 input,
 select {
@@ -82,10 +83,10 @@ select {
 @media screen and (min-width: 992px) {
   input,
   select {
-    border-top-width: 1em;
-    border-left-width: 1em;
-    border-right-width: 1em;
-    border-bottom-width: 1em;
+    border-top-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
     border-radius: 8px;
     padding: 5px;
   }
